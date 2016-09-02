@@ -170,7 +170,7 @@ public class BAGraphGenerator {
 					+ "\t [-s sampling mode, use one of the following roulette wheel methods: \n"
 					+ "\t\t SIMPLE \t\t Simple roulette wheel, which performs linear scans \n"
 					+ "\t\t ROLL_BUCKET \t\t Roll-bucket (ROLL, sec 4.1)\n"
-					+ "\t\t ROLL_TREE  \t\t Roll-tree (ROLL, sec 4.1)\n"
+					+ "\t\t ROLL_TREE  \t\t Roll-tree (ROLL, sec 4.2)\n"
 					+ "\t\t SA \t\t\t Roulette Wheel implemented by Stochastic Acceptance \n"
 					+ "\t\t ROLL_BUCKET_SORTED \t A modified version of Roll-bucket (ROLL, last paragraph on sec. 4.1)\n"
 					+ "\t\t ROLL_TREE_REDUCED \t A modified version of Roll-tree, with reduced insertions (ROLL, sec 4.2: \"Decreased tree operations\") \n"
