@@ -1,3 +1,3 @@
 #!/bin/bash
-./prepareSoftware.sh
-./runExperiments.sh
+sh prepareSoftware.sh
+sh runExperiments.sh
