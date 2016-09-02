@@ -98,46 +98,6 @@ echo "Testing SIMPLE for variable n values (current n=10000000), m=m_0=2, trial=
 java -jar ROLL.jar -s SIMPLE  -m 2 -n 10000000 2>>results.txt
 echo "Testing SIMPLE for variable n values (current n=10000000), m=m_0=2, trial=10, algorithm = SIMPLE"
 java -jar ROLL.jar -s SIMPLE  -m 2 -n 10000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=100000000), m=m_0=2, trial=1, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 100000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=100000000), m=m_0=2, trial=2, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 100000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=100000000), m=m_0=2, trial=3, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 100000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=100000000), m=m_0=2, trial=4, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 100000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=100000000), m=m_0=2, trial=5, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 100000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=100000000), m=m_0=2, trial=6, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 100000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=100000000), m=m_0=2, trial=7, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 100000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=100000000), m=m_0=2, trial=8, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 100000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=100000000), m=m_0=2, trial=9, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 100000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=100000000), m=m_0=2, trial=10, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 100000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=1000000000), m=m_0=2, trial=1, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 1000000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=1000000000), m=m_0=2, trial=2, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 1000000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=1000000000), m=m_0=2, trial=3, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 1000000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=1000000000), m=m_0=2, trial=4, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 1000000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=1000000000), m=m_0=2, trial=5, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 1000000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=1000000000), m=m_0=2, trial=6, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 1000000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=1000000000), m=m_0=2, trial=7, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 1000000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=1000000000), m=m_0=2, trial=8, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 1000000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=1000000000), m=m_0=2, trial=9, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 1000000000 2>>results.txt
-echo "Testing SIMPLE for variable n values (current n=1000000000), m=m_0=2, trial=10, algorithm = SIMPLE"
-java -jar ROLL.jar -s SIMPLE  -m 2 -n 1000000000 2>>results.txt
 echo "Testing ROLL_BUCKET for variable n values (current n=1000), m=m_0=2, trial=1, algorithm = ROLL_BUCKET"
 java -jar ROLL.jar -s ROLL_BUCKET  -m 2 -n 1000 2>>results.txt
 echo "Testing ROLL_BUCKET for variable n values (current n=1000), m=m_0=2, trial=2, algorithm = ROLL_BUCKET"
