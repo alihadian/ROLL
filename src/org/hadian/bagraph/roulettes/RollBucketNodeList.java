@@ -51,7 +51,6 @@ public class RollBucketNodeList implements NodesList {
 			boolean foundUniqueRandomNode = false;
 			while(!foundUniqueRandomNode){
 				long randNum = ThreadLocalRandom.current().nextLong(effectiveRouletteWheelTotalWeight);
-				System.out.println(effectiveRouletteWheelTotalWeight + "\t ==>   " + randNum);
 				long cumSum = 0;
 				//select corresponding node
 				for (int i : groups.keySet()) {
@@ -59,7 +58,6 @@ public class RollBucketNodeList implements NodesList {
 					cumSum += i * groups.get(i).size();					
 					BAGraphGenerator.numComparisons++;
 					if(cumSum > randNum){	//data is in the current bucket
-						System.err.println("size(B_" + i + ") = " + groups.get(i).size());
 						int selectedNodePositionInBucket = random.nextInt(groups.get(i).size());
 						int selectedNodeId = groups.get(i).get(selectedNodePositionInBucket);
 						if(!allSelectedNodes.contains(selectedNodeId)){
