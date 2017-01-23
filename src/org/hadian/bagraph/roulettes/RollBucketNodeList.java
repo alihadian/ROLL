@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.hadian.bagraph.generators.BAGraphGenerator;
 
@@ -49,7 +50,8 @@ public class RollBucketNodeList implements NodesList {
 			int effectiveRouletteWheelTotalWeight =  (int) (BAGraphGenerator.numEdges * 2 + allSelectedNodes.size());
 			boolean foundUniqueRandomNode = false;
 			while(!foundUniqueRandomNode){
-				long randNum = random.nextLong() % effectiveRouletteWheelTotalWeight;
+				long randNum = ThreadLocalRandom.current().nextLong(effectiveRouletteWheelTotalWeight);
+				System.out.println(effectiveRouletteWheelTotalWeight + "\t ==>   " + randNum);
 				long cumSum = 0;
 				//select corresponding node
 				for (int i : groups.keySet()) {
@@ -57,6 +59,7 @@ public class RollBucketNodeList implements NodesList {
 					cumSum += i * groups.get(i).size();					
 					BAGraphGenerator.numComparisons++;
 					if(cumSum > randNum){	//data is in the current bucket
+						System.err.println("size(B_" + i + ") = " + groups.get(i).size());
 						int selectedNodePositionInBucket = random.nextInt(groups.get(i).size());
 						int selectedNodeId = groups.get(i).get(selectedNodePositionInBucket);
 						if(!allSelectedNodes.contains(selectedNodeId)){

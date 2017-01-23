@@ -5,6 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.TreeMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.collections4.map.MultiValueMap;
@@ -59,7 +60,7 @@ public class RollBucketNodeList_SORTED implements NodesList {
 			int effectiveRouletteWheelTotalWeight =  (int) (BAGraphGenerator.numEdges * 2 + allSelectedNodes.size());
 			boolean foundUniqueRandomNode = false;
 			while(!foundUniqueRandomNode){
-				long randNum = random.nextLong() % effectiveRouletteWheelTotalWeight;
+				long randNum = ThreadLocalRandom.current().nextLong(effectiveRouletteWheelTotalWeight);
 				long cumSum = 0;
 				//select corresponding node
 				for (Iterator iterator = sortedMinusWeightsMap.iterator(); iterator.hasNext();){
