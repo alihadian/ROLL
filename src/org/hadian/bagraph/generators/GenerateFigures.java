@@ -12,13 +12,14 @@ public class GenerateFigures {
     private final static int NUM_TESTS = 10;
     private final static String[] columns = {"SamplingMode", "NumNodes", "m", "NumEdges", "NumComparisons", "TotalTime", "SamplingTime", "MaintenanceTime", "NumBuckets", "TreeCodeWordLength", "TreeOptimalHuffmanCodeWordLength", "TotalBucketsInserted", "TotalBucketsRemoved"};
     private final static int MAX_COLUMNS = columns.length;
-    private static final List<String> baseParams = Arrays.asList(new String[]{"java", "-Xmx1g", "-jar", "target/ROLL-0.3-SNAPSHOT-jar-with-dependencies.jar"});
+    private static final List<String> baseParams = Arrays.asList(new String[]{"java", "-Xmx30g", "-jar", "target/ROLL-0.3-SNAPSHOT-jar-with-dependencies.jar"});
     private static final DecimalFormat df = new DecimalFormat("#.0000000");
 
     public static void main(String args[]) throws IOException, InterruptedException {
         runFig2();
-
     }
+
+
 
     private static void runFig2() throws IOException, InterruptedException {
         System.out.println("Fig 2");
