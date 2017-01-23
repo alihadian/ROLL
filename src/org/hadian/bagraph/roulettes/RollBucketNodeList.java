@@ -49,7 +49,7 @@ public class RollBucketNodeList implements NodesList {
 			int effectiveRouletteWheelTotalWeight =  (int) (BAGraphGenerator.numEdges * 2 + allSelectedNodes.size());
 			boolean foundUniqueRandomNode = false;
 			while(!foundUniqueRandomNode){
-				int randNum = random.nextInt(effectiveRouletteWheelTotalWeight);
+				long randNum = random.nextLong() % effectiveRouletteWheelTotalWeight;
 				long cumSum = 0;
 				//select corresponding node
 				for (int i : groups.keySet()) {
