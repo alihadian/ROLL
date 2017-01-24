@@ -38,11 +38,10 @@ public class FigureGenerator {
 
     }
 
-
     public static void runFig2() throws IOException, InterruptedException {
         System.out.println("\n\n    Fig 2    \n===============================");
-        for (int m : new int[]{2, 10, 20}) {
-            for (int np = 3; np <= 9; np++) {
+        for (int np = 3; np <= 9; np++) {
+            for (int m : new int[]{2, 10, 20}) {
                 String n = String.valueOf((long) Math.pow(10, np));
                 Map<String, Double> resultRollBucket = testAndAverage("-s", "roll-tree", "-n", n, "-m", String.valueOf(m));
                 double ratio = 100 * (1 - (resultRollBucket.get("NumBuckets") / resultRollBucket.get("NumNodes")));
@@ -53,8 +52,8 @@ public class FigureGenerator {
 
     public static void runFig3() throws IOException, InterruptedException {
         System.out.println("\n\n    Fig 3    \n===============================");
-        for (int m : new int[]{2, 10, 20}) {
-            for (int np = 3; np <= 8; np++) {
+        for (int np = 3; np <= 8; np++) {
+            for (int m : new int[]{2, 10, 20}) {
                 String n = String.valueOf((long) Math.pow(10, np));
                 Map<String, Double> resultRollBucket = testAndAverage("-s", "roll-bucket", "-n", n, "-m", String.valueOf(m));
                 persist("data.nComp.RWB.m" + m + ".txt", n, df.format(resultRollBucket.get("NumComparisons")));
@@ -65,6 +64,21 @@ public class FigureGenerator {
             }
         }
     }
+
+
+    public static void runFig5() throws IOException, InterruptedException {
+        System.out.println("\n\n    Fig 5    \n===============================");
+        for (int m : new int[]{2, 10, 20}) {
+            for (int np = 3; np <= 9; np++) {
+                String n = String.valueOf((long) Math.pow(10, np));
+                Map<String, Double> resultRollTree = testAndAverage("-s", "roll-tree", "-n", n, "-m", String.valueOf(m));
+                persist("data.cwl.Huffman.m" + m + ".txt", n, df.format(resultRollTree.get("TreeOptimalHuffmanCodeWordLength")));
+                persist("data.cwl.RWBT.m" + m + ".txt", n, df.format(resultRollTree.get("TreeCodeWordLength")));
+            }
+        }
+    }
+
+
 
     public static void persist(String fileName, String key, String value) throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true));
