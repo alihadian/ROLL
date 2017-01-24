@@ -22,6 +22,10 @@ public class RollBucketNodeList implements NodesList {
 	 */
 	private Int2ObjectRBTreeMap<IntArrayList> groups = new Int2ObjectRBTreeMap<IntArrayList>();
 
+	public int getNumBuckets(){
+		return groups.size();
+	}
+
 	@Override
 	public void createInitNodes(int m) {
 		groups.put(1, new IntArrayList());

@@ -44,7 +44,9 @@ public class FigureGenerator {
         for (int m : new int[]{2, 10, 20}) {
             for (int np = 3; np <= 9; np++) {
                 String n = String.valueOf((long) Math.pow(10, np));
-                Map<String, Double> resultRollBucket = testAndAverage("-s", "roll-bucket", "-n", n, "-m", String.valueOf(m));
+                Map<String, Double> resultRollBucket = testAndAverage("-s", "roll-tree", "-n", n, "-m", String.valueOf(m));
+                System.out.println("NumBuckets" + resultRollBucket.get("NumBuckets"));
+                System.out.println("NumNodes" + resultRollBucket.get("NumNodes"));
                 double ratio = 100 * (1 - (resultRollBucket.get("NumBuckets") / resultRollBucket.get("NumNodes")));
                 persist("data.red.m" + m + ".txt", n, df.format(ratio));
             }
