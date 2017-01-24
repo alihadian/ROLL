@@ -27,8 +27,9 @@ public class FigureGenerator {
                 System.out.println(figNumStr);
                 if (!NumberUtils.isDigits(figNumStr))
                     throw new Exception("Cannot parse parameter: " + arg);
-                if(Arrays.stream(FigureGenerator.class.getDeclaredMethods()).map(method -> method.getName()).noneMatch(m -> m.equals("runFig" + figNumStr)))
-                    throw new Exception("Do not have such figure: " + arg);;
+                if (Arrays.stream(FigureGenerator.class.getDeclaredMethods()).map(method -> method.getName()).noneMatch(m -> m.equals("runFig" + figNumStr)))
+                    throw new Exception("Do not have such figure: " + arg);
+                ;
 
                 //for figNum=X, run function runFigX
                 java.lang.reflect.Method method = FigureGenerator.class.getMethod("runFig" + figNumStr);
@@ -68,8 +69,8 @@ public class FigureGenerator {
 
     public static void runFig5() throws IOException, InterruptedException {
         System.out.println("\n\n    Fig 5    \n===============================");
-        for (int m : new int[]{2, 10, 20}) {
-            for (int np = 3; np <= 9; np++) {
+        for (int np = 3; np <= 9; np++) {
+            for (int m : new int[]{2, 10, 20}) {
                 String n = String.valueOf((long) Math.pow(10, np));
                 Map<String, Double> resultRollTree = testAndAverage("-s", "roll-tree", "-n", n, "-m", String.valueOf(m));
                 persist("data.cwl.Huffman.m" + m + ".txt", n, df.format(resultRollTree.get("TreeOptimalHuffmanCodeWordLength")));
@@ -79,10 +80,25 @@ public class FigureGenerator {
     }
 
 
+    public static void runFig6() throws IOException, InterruptedException {
+        System.out.println("\n\n    Fig 6    \n===============================");
+        for (int np = 3; np <= 8; np++) {
+            for (int m : new int[]{2, 10, 20}) {
+                String n = String.valueOf((long) Math.pow(10, np));
+                Map<String, Double> resultRollTree = testAndAverage("-s", "roll-tree", "-n", n, "-m", String.valueOf(m));
+                Map<String, Double> resultRollTreeReduced = testAndAverage("-s", "roll-tree-reduced", "-n", n, "-m", String.valueOf(m));
+                double rollTreeOperations = resultRollTree.get("TotalBucketsInserted") + resultRollTree.get("TotalBucketsRemoved");
+                double rollTreeReducedOperations = resultRollTreeReduced.get("TotalBucketsInserted") + resultRollTreeReduced.get("TotalBucketsRemoved");
+                double reductionRatio = 100 * (1- (rollTreeReducedOperations/rollTreeOperations));
+                persist("data.ins_reduce.m" + m + ".txt", n, df.format(reductionRatio));
+            }
+        }
+    }
+
 
     public static void persist(String fileName, String key, String value) throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true));
-        System.out.printf("\t +Persisted: (%s,%s) ==> %s\n", key, value,fileName);
+        System.out.printf("\t +Persisted: (%s,%s) ==> %s\n", key, value, fileName);
         bw.write(key + "\t" + value);
         bw.newLine();
         bw.flush();
