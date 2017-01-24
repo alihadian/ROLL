@@ -57,7 +57,7 @@ public class RollBucketNodeList_SORTED implements NodesList {
 		for (int mCount=0; mCount<m; mCount++){  //selecting candidateNodes[mCount]
 			//meanwhile in this loop, some nodes have already been selected and stored in allSelectedNodes. The graph is also updated according to these nodes,
 			//  so total weights in the roulette wheel is increased after selecting each node, therefore SUM(degrees) > (#edges*2). Therefore we should increase the Max weight in the roulette wheel to compensate it.
-			int effectiveRouletteWheelTotalWeight =  (int) (BAGraphGenerator.numEdges * 2 + allSelectedNodes.size());
+			long effectiveRouletteWheelTotalWeight =  BAGraphGenerator.numEdges * 2 + allSelectedNodes.size();
 			boolean foundUniqueRandomNode = false;
 			while(!foundUniqueRandomNode){
 				long randNum = ThreadLocalRandom.current().nextLong(effectiveRouletteWheelTotalWeight);
