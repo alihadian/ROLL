@@ -95,6 +95,19 @@ public class FigureGenerator {
         }
     }
 
+    public static void runFig7() throws IOException, InterruptedException {
+        System.out.println("\n\n    Fig 7    \n===============================");
+        for (int np = 3; np <= 8; np++) {
+            for (int m : new int[]{2, 10, 20}) {
+                String n = String.valueOf((long) Math.pow(10, np));
+                Map<String, Double> result = testAndAverage("-s", "roll-tree", "-n", n, "-m", String.valueOf(m));
+                persist("data.BvsT.T.m" + m + ".txt", n, df.format(result.get("NumComparisons") / result.get("NumEdges")));
+                result = testAndAverage("-s", "roll-bucket", "-n", n, "-m", String.valueOf(m));
+                persist("data.BvsT.B.m" + m + ".txt", n, df.format(result.get("NumComparisons") / result.get("NumEdges")));
+            }
+        }
+    }
+
 
     public static void persist(String fileName, String key, String value) throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true));
@@ -122,12 +135,11 @@ public class FigureGenerator {
             for (int col = 1; col < Math.min(MAX_COLUMNS, res.length); col++) {
                 sums[col] += Double.parseDouble(res[col]);
             }
-            //Arrays.stream(res).forEachOrdered(s -> System.err.print(s + "\t"));
-            //System.err.println();
         }
 
         for (int col = 1; col < MAX_COLUMNS; col++)
             results.put(columns[col], sums[col] / NUM_TESTS);
+
 
         return results;
     }
