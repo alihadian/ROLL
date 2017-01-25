@@ -3,8 +3,15 @@ package org.hadian.bagraph.generators;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
 
 /**
  * Created by ali on 18/01/17.
@@ -16,6 +23,7 @@ public class FigureGenerator {
     private static List<String> baseParams = Arrays.asList(new String[]{"java", "-Xmx4g", "-jar", "target/ROLL-0.3-SNAPSHOT-jar-with-dependencies.jar"});
     private static final DecimalFormat df = new DecimalFormat("#.0000000");
     private static String FIGURES_PARAM_PREFIX = "-fig";
+    private static String HISTOGRAM_TEMP_FILE_NAME = "graph_file.txt";
 
     public static void main(String args[]) throws Exception {
         FigureGenerator figGen = new FigureGenerator();
@@ -24,12 +32,10 @@ public class FigureGenerator {
                 baseParams.set(1, arg);
             if (arg.toLowerCase().startsWith(FIGURES_PARAM_PREFIX)) {
                 String figNumStr = arg.substring(FIGURES_PARAM_PREFIX.length());
-                System.out.println(figNumStr);
                 if (!NumberUtils.isDigits(figNumStr))
                     throw new Exception("Cannot parse parameter: " + arg);
                 if (Arrays.stream(FigureGenerator.class.getDeclaredMethods()).map(method -> method.getName()).noneMatch(m -> m.equals("runFig" + figNumStr)))
                     throw new Exception("Do not have such figure: " + arg);
-                ;
 
                 //for figNum=X, run function runFigX
                 java.lang.reflect.Method method = FigureGenerator.class.getMethod("runFig" + figNumStr);
@@ -89,7 +95,7 @@ public class FigureGenerator {
                 Map<String, Double> resultRollTreeReduced = testAndAverage("-s", "roll-tree-reduced", "-n", n, "-m", String.valueOf(m));
                 double rollTreeOperations = resultRollTree.get("TotalBucketsInserted") + resultRollTree.get("TotalBucketsRemoved");
                 double rollTreeReducedOperations = resultRollTreeReduced.get("TotalBucketsInserted") + resultRollTreeReduced.get("TotalBucketsRemoved");
-                double reductionRatio = 100 * (1- (rollTreeReducedOperations/rollTreeOperations));
+                double reductionRatio = 100 * (1 - (rollTreeReducedOperations / rollTreeOperations));
                 persist("data.ins_reduce.m" + m + ".txt", n, df.format(reductionRatio));
             }
         }
@@ -106,6 +112,27 @@ public class FigureGenerator {
                 persist("data.BvsT.B.m" + m + ".txt", n, df.format(result.get("NumComparisons") / result.get("NumEdges")));
             }
         }
+    }
+
+
+    public static void runFig8() throws IOException, InterruptedException {
+
+        System.out.println("\n\n    Fig 8    \n===============================");
+        String n = String.valueOf((long) Math.pow(10, 9));
+        String m = "2";
+        ArrayList<String> fullParams = new ArrayList<String>(baseParams);
+        fullParams.addAll(Arrays.asList(new String[]{"-s", "roll-tree", "-n", n, "-m", String.valueOf(m), "-o", HISTOGRAM_TEMP_FILE_NAME}));
+        System.err.println(fullParams.stream().reduce("\nParams: ", (a, b) -> a + " " + b));
+        runTest(fullParams);
+        System.err.println("Extracting degree distribution...");
+        Map<Long, Long> counts = Files.lines(Paths.get(HISTOGRAM_TEMP_FILE_NAME)).flatMap(l -> Arrays.stream(l.split("\t"))).map(s -> Long.parseLong(s)).collect(groupingBy(Function.identity(), counting()))
+                .values().stream().collect(groupingBy(Function.identity(), counting()));
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("data.distribution.txt"))) {
+            for (long deg : counts.keySet())//.stream().sorted().collect(Collectors.toList()))
+                writer.write(deg + "\t" + counts.get(deg) + "\n");
+        }
+
+
     }
 
 
