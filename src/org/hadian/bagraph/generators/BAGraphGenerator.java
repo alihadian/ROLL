@@ -84,9 +84,10 @@ public class BAGraphGenerator {
             System.out.println("Initialization method should be revisited");
             System.exit(1);
         }
-        nodesRouletteWheel.createInitNodes(m);
-        numNodes = m + 1;
-        numEdges = m;
+        int final_m0 = (m_0 == null)? m : m_0;
+        nodesRouletteWheel.createInitNodes(final_m0);
+        numNodes = final_m0 + 1;
+        numEdges = final_m0;
     }
 
     /**
