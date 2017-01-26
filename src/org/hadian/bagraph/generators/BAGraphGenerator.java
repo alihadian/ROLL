@@ -34,6 +34,7 @@ public class BAGraphGenerator {
     public static SamplingMode samplingMode = SamplingMode.SIMPLE;
     public static int numNodesFinal = 0;
     public static int m = 2;
+    public static Integer m_0 = null;
     public long start = System.nanoTime();
     public static BufferedWriter graphFileWriter = null;
     public static String graphDistributionOutputFileName = null;    //only supported for ROLL-Tree
@@ -185,7 +186,10 @@ public class BAGraphGenerator {
                     break;
                 case "-d":
                     BAGraphGenerator.graphDistributionOutputFileName = args[i + 1];
-
+                    break;
+                case "-m0":
+                    BAGraphGenerator.m_0 = Integer.parseInt(args[i + 1]);
+                    break;
             }
         }
         if (n == -1) {
