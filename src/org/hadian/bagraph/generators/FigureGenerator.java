@@ -23,7 +23,6 @@ public class FigureGenerator {
     private static List<String> baseParams = Arrays.asList(new String[]{"java", "-Xmx4g", "-jar", "target/ROLL-0.3-SNAPSHOT-jar-with-dependencies.jar"});
     private static final DecimalFormat df = new DecimalFormat("#.0000000");
     private static String FIGURES_PARAM_PREFIX = "-fig";
-    private static String HISTOGRAM_TEMP_FILE_NAME = "graph_file.txt";
 
     public static void main(String args[]) throws Exception {
         FigureGenerator figGen = new FigureGenerator();
@@ -116,23 +115,21 @@ public class FigureGenerator {
 
 
     public static void runFig8() throws IOException, InterruptedException {
-
         System.out.println("\n\n    Fig 8    \n===============================");
         String n = String.valueOf((long) Math.pow(10, 9));
         String m = "2";
         ArrayList<String> fullParams = new ArrayList<String>(baseParams);
-        fullParams.addAll(Arrays.asList(new String[]{"-s", "roll-tree", "-n", n, "-m", String.valueOf(m), "-o", HISTOGRAM_TEMP_FILE_NAME}));
+        fullParams.addAll(Arrays.asList(new String[]{"-s", "roll-tree", "-n", n, "-m", String.valueOf(m), "-d", "data.distribution.txt"}));
         System.err.println(fullParams.stream().reduce("\nParams: ", (a, b) -> a + " " + b));
         runTest(fullParams);
-        System.err.println("Extracting degree distribution...");
-        Map<Long, Long> counts = Files.lines(Paths.get(HISTOGRAM_TEMP_FILE_NAME)).flatMap(l -> Arrays.stream(l.split("\t"))).map(s -> Long.parseLong(s)).collect(groupingBy(Function.identity(), counting()))
+        //System.err.println("Extracting degree distribution...");
+
+        /*Map<Long, Long> counts = Files.lines(Paths.get(HISTOGRAM_TEMP_FILE_NAME)).flatMap(l -> Arrays.stream(l.split("\t"))).map(s -> Long.parseLong(s)).collect(groupingBy(Function.identity(), counting()))
                 .values().stream().collect(groupingBy(Function.identity(), counting()));
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("data.distribution.txt"))) {
             for (long deg : counts.keySet())//.stream().sorted().collect(Collectors.toList()))
                 writer.write(deg + "\t" + counts.get(deg) + "\n");
-        }
-
-
+        }*/
     }
 
 

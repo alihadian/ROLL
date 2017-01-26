@@ -5,12 +5,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.RoundingMode;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.NumberFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 
 import org.hadian.bagraph.roulettes.*;
+import org.hadian.bagraph.roulettes.rolltree.datatypes.Bucket;
 
 /**
  * BAGraphGenerator creates a Barabasi-Albert graph using different roulette wheel algorithms.
@@ -35,6 +36,7 @@ public class BAGraphGenerator {
     public static int m = 2;
     public long start = System.nanoTime();
     public static BufferedWriter graphFileWriter = null;
+    public static String graphDistributionOutputFileName = null;    //only supported for ROLL-Tree
     public static long samplingTime, maintenanceTime, numComparisons, totalTime;
     public BufferedWriter outWriter = null;
 
@@ -124,6 +126,17 @@ public class BAGraphGenerator {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //Print data distribution, if the output file name is provided using the "-d" switch
+        if(nodesRouletteWheel instanceof RollTreeNodeList && graphDistributionOutputFileName != null) {
+            try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(graphDistributionOutputFileName))) {
+                Map<Integer, Bucket> buckets = ((RollTreeNodeList) nodesRouletteWheel).getBuckets();
+                for (int d: buckets.keySet().stream().mapToInt(x -> x).sorted().toArray())//.stream().sorted().collect(Collectors.toList()))
+                    writer.write(d + "\t" + buckets.get(d).getSize() + "\n");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -170,6 +183,9 @@ public class BAGraphGenerator {
                 case "-s":
                     BAGraphGenerator.samplingMode = SamplingMode.valueOf(args[i + 1].toUpperCase().replace('-', '_'));
                     break;
+                case "-d":
+                    BAGraphGenerator.graphDistributionOutputFileName = args[i + 1];
+
             }
         }
         if (n == -1) {
