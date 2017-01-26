@@ -122,14 +122,6 @@ public class FigureGenerator {
         fullParams.addAll(Arrays.asList(new String[]{"-s", "roll-tree", "-n", n, "-m", String.valueOf(m), "-d", "data.distribution.txt"}));
         System.err.println(fullParams.stream().reduce("\nParams: ", (a, b) -> a + " " + b));
         runTest(fullParams);
-        //System.err.println("Extracting degree distribution...");
-
-        /*Map<Long, Long> counts = Files.lines(Paths.get(HISTOGRAM_TEMP_FILE_NAME)).flatMap(l -> Arrays.stream(l.split("\t"))).map(s -> Long.parseLong(s)).collect(groupingBy(Function.identity(), counting()))
-                .values().stream().collect(groupingBy(Function.identity(), counting()));
-        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("data.distribution.txt"))) {
-            for (long deg : counts.keySet())//.stream().sorted().collect(Collectors.toList()))
-                writer.write(deg + "\t" + counts.get(deg) + "\n");
-        }*/
     }
 
 
