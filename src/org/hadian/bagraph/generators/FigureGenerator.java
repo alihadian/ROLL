@@ -124,6 +124,26 @@ public class FigureGenerator {
         runTest(fullParams);
     }
 
+    public static void runFig10() throws IOException, InterruptedException {
+        System.out.println("\n\n    Fig 10    \n===============================");
+        String m = "2";
+        String n = String.valueOf((long) Math.pow(10, 7));
+        for (int m0p = 1; m0p <= 10; m0p++) {
+            String m0 = String.valueOf((long) Math.pow(2, m0p));
+
+            Map<String, Double> result = testAndAverage("-s", "simple", "-n", n, "-m", String.valueOf(m), "-m0", m0);
+            persist("data.em0.original.txt", m0, df.format(result.get("TotalTime") / Math.pow(10, 9)));
+
+            result = testAndAverage("-s", "sa", "-n", n, "-m", String.valueOf(m), "-m0", m0);
+            persist("data.em0.SA.txt", m0, df.format(result.get("TotalTime") / Math.pow(10, 9)));
+
+            result = testAndAverage("-s", "roll-bucket", "-n", n, "-m", String.valueOf(m), "-m0", m0);
+            persist("data.em0.RWB.txt", m0, df.format(result.get("TotalTime") / Math.pow(10, 9)));
+
+            result = testAndAverage("-s", "roll-tree", "-n", n, "-m", String.valueOf(m), "-m0", m0);
+            persist("data.em0.RWBT.txt", m0, df.format(result.get("TotalTime") / Math.pow(10, 9)));
+        }
+    }
 
     public static void persist(String fileName, String key, String value) throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true));
