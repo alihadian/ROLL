@@ -23,7 +23,12 @@ public class FigureGenerator {
     private static List<String> baseParams = Arrays.asList(new String[]{"java", "-Xmx4g", "-jar", "target/ROLL-0.3-SNAPSHOT-jar-with-dependencies.jar"});
     private static final DecimalFormat df = new DecimalFormat("#.0000000");
     private static String FIGURES_PARAM_PREFIX = "-fig";
-    private static final Map<String, String> ALG_TO_FILE_NAMES_MAP = new LinkedHashMap<String, String>() {{ put("roll-tree", "RWBT"); put("roll-bucket", "RWB"); put("sa", "SA"); put("simple", "original"); }};
+    private static final Map<String, String> ALG_TO_FILE_NAMES_MAP = new LinkedHashMap<String, String>() {{
+        put("roll-tree", "RWBT");
+        put("roll-bucket", "RWB");
+        put("sa", "SA");
+        put("simple", "original");
+    }};
 
     public static void main(String args[]) throws Exception {
         FigureGenerator figGen = new FigureGenerator();
@@ -152,12 +157,37 @@ public class FigureGenerator {
         for (int np = 3; np <= 9; np++) {
             for (int m : new int[]{2, 10, 20}) {
                 for (String alg : ALG_TO_FILE_NAMES_MAP.keySet()) {
-                    if( (!alg.equals("roll-tree") && np > 8) ||  (alg.equals("simple") && np>6) )
+                    if ((!alg.equals("roll-tree") && np > 8) || (alg.equals("simple") && np > 6))
                         continue;
                     String n = String.valueOf((long) Math.pow(10, np));
                     Map<String, Double> result = testAndAverage("-s", alg, "-n", n, "-m", String.valueOf(m));
                     persist("data.e1." + ALG_TO_FILE_NAMES_MAP.get(alg) + ".m" + m + ".txt", n, df.format(result.get("TotalTime") / Math.pow(10, 9)));
                 }
+            }
+        }
+    }
+
+
+    public static void runFig12() throws IOException, InterruptedException {
+        System.out.println("\n\n    Fig 12    \n===============================");
+        for (int np = 6; np <= 7; np++) {
+            String n = String.valueOf((long) Math.pow(10, np));
+            for (int m : new int[]{1, 2, 3, 4, 5, 10, 20, 50, 100}) {
+                for (String alg : ALG_TO_FILE_NAMES_MAP.keySet()) {
+                    if (alg.equals("simple"))
+                        continue;
+                    Map<String, Double> result = testAndAverage("-s", alg, "-n", n, "-m", String.valueOf(m));
+                    persist("data.em.E" + np + "." + ALG_TO_FILE_NAMES_MAP.get(alg) + ".txt", String.valueOf(m), df.format(result.get("TotalTime") / Math.pow(10, 9)));
+                }
+            }
+        }
+        //separately run "-s simple", as it is much slower.
+        for (int np = 6; np <= 7; np++) {
+            String n = String.valueOf((long) Math.pow(10, np));
+            for (int m : new int[]{1, 2, 3, 4, 5, 10}) {
+                String alg = "simple";
+                Map<String, Double> result = testAndAverage("-s", alg, "-n", n, "-m", String.valueOf(m));
+                persist("data.em.E" + np + "." + ALG_TO_FILE_NAMES_MAP.get(alg) + ".txt", String.valueOf(m), df.format(result.get("TotalTime") / Math.pow(10, 9)));
             }
         }
     }
