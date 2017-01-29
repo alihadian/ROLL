@@ -42,6 +42,8 @@ Parameters
  - **-o** output file name (default: no output) 
 
  - **-s** sampling mode (simple, roll-bucket, roll-tree, SA)
+ 
+ - **-m0** number of initial nodes. Note that m0 <= m (default: =m)
 
  - **-d** Only for ROLL-tree: path to save the degree distribution file.
 
