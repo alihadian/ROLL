@@ -5,6 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.TreeMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.collections4.map.MultiValueMap;
@@ -56,10 +57,10 @@ public class RollBucketNodeList_SORTED implements NodesList {
 		for (int mCount=0; mCount<m; mCount++){  //selecting candidateNodes[mCount]
 			//meanwhile in this loop, some nodes have already been selected and stored in allSelectedNodes. The graph is also updated according to these nodes,
 			//  so total weights in the roulette wheel is increased after selecting each node, therefore SUM(degrees) > (#edges*2). Therefore we should increase the Max weight in the roulette wheel to compensate it.
-			int effectiveRouletteWheelTotalWeight =  (int) (BAGraphGenerator.numEdges * 2 + allSelectedNodes.size());
+			long effectiveRouletteWheelTotalWeight =  BAGraphGenerator.numEdges * 2 + allSelectedNodes.size();
 			boolean foundUniqueRandomNode = false;
 			while(!foundUniqueRandomNode){
-				int randNum = random.nextInt(effectiveRouletteWheelTotalWeight);
+				long randNum = ThreadLocalRandom.current().nextLong(effectiveRouletteWheelTotalWeight);
 				long cumSum = 0;
 				//select corresponding node
 				for (Iterator iterator = sortedMinusWeightsMap.iterator(); iterator.hasNext();){

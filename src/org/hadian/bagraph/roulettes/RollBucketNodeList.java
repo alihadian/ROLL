@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.hadian.bagraph.generators.BAGraphGenerator;
 
@@ -20,6 +21,10 @@ public class RollBucketNodeList implements NodesList {
 	 * Map of all groups (buckets). KEYs = available degrees, value(key) = {node | deg(node) == key}
 	 */
 	private Int2ObjectRBTreeMap<IntArrayList> groups = new Int2ObjectRBTreeMap<IntArrayList>();
+
+	public int getNumBuckets(){
+		return groups.size();
+	}
 
 	@Override
 	public void createInitNodes(int m) {
@@ -46,10 +51,10 @@ public class RollBucketNodeList implements NodesList {
 			
 			//meanwhile in this loop, some nodes have already been selected and stored in allSelectedNodes. The graph is also updated according to these nodes,
 			//  so total weights in the roulette wheel is increased after selecting each node, therefore SUM(degrees) > (#edges*2). Therefore we should increase the Max weight in the roulette wheel to compensate it.
-			int effectiveRouletteWheelTotalWeight =  (int) (BAGraphGenerator.numEdges * 2 + allSelectedNodes.size());
+			long effectiveRouletteWheelTotalWeight =  BAGraphGenerator.numEdges * 2 + allSelectedNodes.size();
 			boolean foundUniqueRandomNode = false;
 			while(!foundUniqueRandomNode){
-				int randNum = random.nextInt(effectiveRouletteWheelTotalWeight);
+				long randNum = ThreadLocalRandom.current().nextLong(effectiveRouletteWheelTotalWeight);
 				long cumSum = 0;
 				//select corresponding node
 				for (int i : groups.keySet()) {

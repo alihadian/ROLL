@@ -2,6 +2,7 @@ package org.hadian.bagraph.roulettes;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.hadian.bagraph.generators.BAGraphGenerator;
 
@@ -40,7 +41,8 @@ public class SimpleRWNodeList implements NodesList {
 		for (int mCount=0; mCount<m; mCount++){  //selecting candidateNodes[mCount]
 			int selectedNode = -1;
 			do{
-				int randNum = random.nextInt((int) BAGraphGenerator.numEdges * 2);
+				long randNum = ThreadLocalRandom.current().nextLong(BAGraphGenerator.numEdges * 2);
+
 				long cumSum = 0;
 				//select corresponding node
 				for(int i=0; i<numNodes; i++){

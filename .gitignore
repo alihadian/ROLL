@@ -3,6 +3,9 @@ src/trash/
 
 # Created by https://www.gitignore.io/api/java,maven,eclipse,intellij,maven
 
+### Project data ###
+data.*.txt
+
 ### Maven ###
 target/
 pom.xml.tag

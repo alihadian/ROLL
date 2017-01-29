@@ -43,6 +43,8 @@ Parameters
 
  - **-s** sampling mode (simple, roll-bucket, roll-tree, SA)
 
+ - **-d** Only for ROLL-tree: path to save the degree distribution file.
+
 Output
 ------
 The saves resulting graph is saved in a text file. Also, the performance measures (execution speed and time taken by various components) is printed in the standard output.
