@@ -102,6 +102,7 @@ References
 License
 -------
 Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+This repository is adapted with [ACM reproducibility](http://db-reproducibility.seas.harvard.edu). Owner of artifact grants ACM permission to serve the artifact to users of the ACM Digital Library.
 
 
 Citing the paper
@@ -110,12 +111,20 @@ If you find this package useful, we kindly ask you to cite [the paper \[1\]][1].
 
 ```
 @inproceedings{hadian2016roll,
-  title = {ROLL: Fast in-memory generation of gigantic scale-free networks}, 
-  author = {Hadian, Ali and Nobari, Sadegh and Minaei-Bidgoli, Behrouz and Qu, Qiang},
-  booktitle = {Proceedings of the 2016 ACM SIGMOD International Conference on Management of Data (To appear)},
-  publisher = "ACM",
-  year = {2016},
-  doi={10.1145/2882903.2882964}
+ author = {Hadian, Ali and Nobari, Sadegh and Minaei-Bidgoli, Behrooz and Qu, Qiang},
+ title = {ROLL: Fast In-Memory Generation of Gigantic Scale-free Networks},
+ booktitle = {Proceedings of the 2016 International Conference on Management of Data},
+ series = {SIGMOD '16},
+ year = {2016},
+ isbn = {978-1-4503-3531-7},
+ location = {San Francisco, California, USA},
+ pages = {1829--1842},
+ numpages = {14},
+ url = {http://doi.acm.org/10.1145/2882903.2882964},
+ doi = {10.1145/2882903.2882964},
+ acmid = {2882964},
+ publisher = {ACM},
+ address = {New York, NY, USA},
 }
 ```
 
