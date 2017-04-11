@@ -49,7 +49,7 @@ Parameters
 
 Output
 ------
-The saves resulting graph is saved in a text file. Also, the performance measures (execution speed and time taken by various components) is printed in the standard output.
+The resulting graph is saved in a text file. Also, the performance measures (execution speed and time taken by various components) is printed in the standard output.
 
 ### Output format:
 You should explicitly define the output file (using -o switch), or otherwise no output file is created. The output file contains the edge list of the graph, where each line contains a single edge: ``source_node_id target_node_id`` (tab-delimtited). for example:
